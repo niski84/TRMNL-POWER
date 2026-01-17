@@ -141,13 +141,24 @@ func main() {
 	if useTray {
 		go func() {
 			log.Println("Starting system tray...")
+			log.Println("Server running in system tray. Right-click icon for menu.")
+			log.Println("Use --no-tray flag for console-only mode.")
 			startSystemTray(baseURL)
 		}()
-		log.Println("Server running in system tray. Use --no-tray flag for console-only mode.")
 	}
 
 	// Run server (blocks)
+	// Note: On Windows with tray, the console window can be minimized
 	if err := http.ListenAndServe(addr, nil); err != nil {
+		if serverQuitChan != nil {
+			// Check if this is a graceful shutdown from tray
+			select {
+			case <-serverQuitChan:
+				log.Println("Server stopped by user request")
+				return
+			default:
+			}
+		}
 		log.Fatalf("Server failed: %v", err)
 	}
 }

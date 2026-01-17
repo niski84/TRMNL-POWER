@@ -49,8 +49,10 @@ func onReady(baseURL string) {
 				openBrowser(baseURL)
 			case <-mQuit.ClickedCh:
 				log.Println("Quit requested from system tray")
-				systray.Quit()
 				close(serverQuitChan)
+				systray.Quit()
+				// Exit the program
+				runtime.Goexit()
 				return
 			}
 		}
@@ -58,13 +60,7 @@ func onReady(baseURL string) {
 }
 
 func onExit() {
-	// Signal server to stop
-	if serverQuitChan != nil {
-		select {
-		case serverQuitChan <- true:
-		default:
-		}
-	}
+	// Cleanup - program is exiting
 }
 
 func openBrowser(url string) {
