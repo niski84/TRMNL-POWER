@@ -1,0 +1,10 @@
+{
+  "name": "trmnl-power",
+  "version": "1.0.0",
+  "description": "TRMNL-POWER - Local-first rendering server for TRMNL e-ink displays",
+  "private": true,
+  "dependencies": {
+    "playwright": "^1.40.0"
+  }
+}
+

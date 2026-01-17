@@ -110,6 +110,17 @@ TRMNL-POWER is a lightweight Go server that creates beautiful e-ink displays for
 
 The server will start and display connection instructions with your local IP address!
 
+### Windows Users (Pre-built Release)
+
+1. **Download the latest release** from [GitHub Releases](https://github.com/niski84/TRMNL-POWER/releases)
+2. **Extract the ZIP file** to a folder
+3. **Run `run.bat`** - It will automatically:
+   - Check for Node.js (install from [nodejs.org](https://nodejs.org/) if needed)
+   - Install Playwright on first run
+   - Start the server
+
+That's it! No manual npm installs needed.
+
 ---
 
 ## Screenshots

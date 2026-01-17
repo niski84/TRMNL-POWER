@@ -47,6 +47,8 @@ jobs:
           copy config.json trmnl-power-windows\
           copy README.md trmnl-power-windows\
           copy LICENSE trmnl-power-windows\
+          copy setup-playwright.ps1 trmnl-power-windows\
+          copy run.bat trmnl-power-windows\
           xcopy /E /I /Y data trmnl-power-windows\data
           xcopy /E /I /Y templates trmnl-power-windows\templates
           xcopy /E /I /Y scripts trmnl-power-windows\scripts
