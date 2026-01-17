@@ -118,6 +118,15 @@ func main() {
 	}
 	baseURL := fmt.Sprintf("http://%s:%s", localIP, config.Server.Port)
 	
+	// Check for --no-tray flag to run in console mode
+	useTray := true
+	for _, arg := range os.Args[1:] {
+		if arg == "--no-tray" {
+			useTray = false
+			break
+		}
+	}
+
 	// Display startup help text
 	displayStartupHelp(baseURL, localIP, config.Server.Port)
 	
@@ -128,6 +137,16 @@ func main() {
 	log.Printf("  - Image: http://%s/screen.bmp", baseURL)
 	log.Printf("  - Manual Render: POST http://%s/api/render", baseURL)
 
+	// Start system tray if on Windows and not disabled
+	if useTray {
+		go func() {
+			log.Println("Starting system tray...")
+			startSystemTray(baseURL)
+		}()
+		log.Println("Server running in system tray. Use --no-tray flag for console-only mode.")
+	}
+
+	// Run server (blocks)
 	if err := http.ListenAndServe(addr, nil); err != nil {
 		log.Fatalf("Server failed: %v", err)
 	}
