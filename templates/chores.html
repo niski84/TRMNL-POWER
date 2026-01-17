@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=800, height=480, initial-scale=1.0">
+  <title>House Chores</title>
+  <style>
+{{.Styles}}
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-title">{{.Title}}</div>
+    <div class="header-timestamp">{{.Timestamp}}</div>
+  </div>
+  <div class="content">
+    <!-- Chores Grid -->
+    <div class="dashboard-grid">
+      {{range .Tasks}}
+      <div class="card {{if .Completed}}card-completed{{end}}">
+        <div class="card-label">{{if .Completed}}✓ {{end}}{{.Text}}</div>
+        {{if .Category}}
+        <div class="card-value-container">
+          <div class="card-unit">{{.Category}}</div>
+        </div>
+        {{end}}
+      </div>
+      {{end}}
+    </div>
+  </div>
+</body>
+</html>
+

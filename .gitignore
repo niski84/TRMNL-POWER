@@ -1,0 +1,43 @@
+# Binaries
+trmnl-renderer
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary
+test-render
+test-dashboard
+
+# Output files
+output/*.png
+output/*.bmp
+output/*.tmp
+
+# Test output
+test-output.png
+test-output.log
+*-render.png
+
+# Server logs
+server.log
+*.log
+
+# Node modules
+node_modules/
+
+# Go build cache
+*.test
+*.prof
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db

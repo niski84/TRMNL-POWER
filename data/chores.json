@@ -1,0 +1,47 @@
+{
+  "title": "House Chores",
+  "timestamp": "2024-01-16 20:00:00",
+  "tasks": [
+    {
+      "text": "Take out trash and recycling",
+      "completed": false,
+      "category": "Weekly"
+    },
+    {
+      "text": "Clean kitchen counters",
+      "completed": true,
+      "category": "Daily"
+    },
+    {
+      "text": "Do laundry - whites",
+      "completed": false,
+      "category": "Weekly"
+    },
+    {
+      "text": "Grocery shopping",
+      "completed": false,
+      "category": "Errands"
+    },
+    {
+      "text": "Vacuum living room",
+      "completed": true,
+      "category": "Weekly"
+    },
+    {
+      "text": "Change air filter",
+      "completed": false,
+      "category": "Monthly"
+    },
+    {
+      "text": "Water house plants",
+      "completed": false,
+      "category": "Daily"
+    },
+    {
+      "text": "Mow the lawn",
+      "completed": false,
+      "category": "Weekly"
+    }
+  ]
+}
+

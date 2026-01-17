@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=800, height=480, initial-scale=1.0">
+  <title>Todo List</title>
+  <style>
+{{.Styles}}
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-title">{{.Title}}</div>
+    <div class="header-timestamp">{{.Timestamp}}</div>
+  </div>
+  <div class="content">
+    <div class="todo-container">
+      <h2 class="todo-header">Household Tasks</h2>
+      <ul class="todo-list">
+        {{range .Tasks}}
+        <li class="todo-item {{if .Completed}}completed{{end}}">
+          <span class="todo-checkbox">{{if .Completed}}✓{{else}}○{{end}}</span>
+          <span class="todo-text">{{.Text}}</span>
+          {{if .Category}}<span class="todo-category">{{.Category}}</span>{{end}}
+        </li>
+        {{end}}
+      </ul>
+    </div>
+  </div>
+</body>
+</html>
+

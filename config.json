@@ -1,0 +1,30 @@
+{
+  "server": {
+    "port": "3000",
+    "host": "0.0.0.0"
+  },
+  "render": {
+    "width": 800,
+    "height": 480,
+    "refreshIntervalMinutes": 5,
+    "outputPath": "./output/screen.bmp",
+    "tempPath": "./output/screen.tmp"
+  },
+  "dataSources": {
+    "jsonFiles": [
+      "./data/example.json"
+    ],
+    "apiEndpoints": [],
+    "scripts": []
+  },
+  "trmnl": {
+    "apiKey": "local-dev-key-change-in-production",
+    "friendlyId": "local-trmnl-renderer",
+    "refreshRateSeconds": 300
+  },
+  "paths": {
+    "template": "./template/index.html",
+    "outputDir": "./output"
+  }
+}
+

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=800, height=480, initial-scale=1.0">
+  <title>Local Dashboard</title>
+  <style>
+{{.Styles}}
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-title">{{.Title}}</div>
+    <div class="header-timestamp">{{.Timestamp}}</div>
+  </div>
+  <div class="content">
+    <!-- System Metrics Grid -->
+    <div class="dashboard-grid">
+      <!-- System Load Card -->
+      {{if index .Fields "SystemLoad"}}
+      <div class="card">
+        <div class="card-label">System Load</div>
+        <div class="card-value-container">
+          <div class="card-value">{{index .Fields "SystemLoad"}}</div>
+          {{if index .Fields "SystemLoadUnit"}}<span class="card-unit">{{index .Fields "SystemLoadUnit"}}</span>{{end}}
+        </div>
+      </div>
+      {{end}}
+
+      <!-- Temperature Card -->
+      {{if index .Fields "Temperature"}}
+      <div class="card">
+        <div class="card-label">Temperature</div>
+        <div class="card-value-container">
+          <div class="card-value">{{index .Fields "Temperature"}}</div>
+          {{if index .Fields "TemperatureUnit"}}<span class="card-unit">{{index .Fields "TemperatureUnit"}}</span>{{end}}
+        </div>
+      </div>
+      {{end}}
+
+      <!-- Memory Usage Card -->
+      {{if index .Fields "MemoryUsage"}}
+      <div class="card">
+        <div class="card-label">Memory Usage</div>
+        <div class="card-value-container">
+          <div class="card-value">{{index .Fields "MemoryUsage"}}</div>
+          {{if index .Fields "MemoryUsageUnit"}}<span class="card-unit">{{index .Fields "MemoryUsageUnit"}}</span>{{end}}
+        </div>
+      </div>
+      {{end}}
+
+      <!-- Uptime Card -->
+      {{if index .Fields "Uptime"}}
+      <div class="card">
+        <div class="card-label">Uptime</div>
+        <div class="card-value-container">
+          <div class="card-value">{{index .Fields "Uptime"}}</div>
+          {{if index .Fields "UptimeUnit"}}<span class="card-unit">{{index .Fields "UptimeUnit"}}</span>{{end}}
+        </div>
+      </div>
+      {{end}}
+
+      <!-- Network Up Card -->
+      {{if index .Fields "NetworkUp"}}
+      <div class="card">
+        <div class="card-label">Network Up</div>
+        <div class="card-value-container">
+          <div class="card-value">{{index .Fields "NetworkUp"}}</div>
+          {{if index .Fields "NetworkUpUnit"}}<span class="card-unit">{{index .Fields "NetworkUpUnit"}}</span>{{end}}
+        </div>
+      </div>
+      {{end}}
+
+      <!-- Network Down Card -->
+      {{if index .Fields "NetworkDown"}}
+      <div class="card">
+        <div class="card-label">Network Down</div>
+        <div class="card-value-container">
+          <div class="card-value">{{index .Fields "NetworkDown"}}</div>
+          {{if index .Fields "NetworkDownUnit"}}<span class="card-unit">{{index .Fields "NetworkDownUnit"}}</span>{{end}}
+        </div>
+      </div>
+      {{end}}
+
+      <!-- Disk Usage Card -->
+      {{if index .Fields "DiskUsage"}}
+      <div class="card">
+        <div class="card-label">Disk Usage</div>
+        <div class="card-value-container">
+          <div class="card-value">{{index .Fields "DiskUsage"}}</div>
+          {{if index .Fields "DiskUsageUnit"}}<span class="card-unit">{{index .Fields "DiskUsageUnit"}}</span>{{end}}
+        </div>
+      </div>
+      {{end}}
+    </div>
+  </div>
+</body>
+</html>
+

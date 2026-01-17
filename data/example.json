@@ -1,0 +1,20 @@
+{
+  "title": "Local Dashboard",
+  "timestamp": "2024-01-01 12:00:00",
+  "fields": {
+    "SystemLoad": 42,
+    "SystemLoadUnit": "%",
+    "Temperature": 72,
+    "TemperatureUnit": "°F",
+    "MemoryUsage": 65,
+    "MemoryUsageUnit": "%",
+    "Uptime": 7,
+    "UptimeUnit": "days",
+    "NetworkUp": "12.5",
+    "NetworkUpUnit": "Mbps",
+    "NetworkDown": "45.2",
+    "NetworkDownUnit": "Mbps",
+    "DiskUsage": 34,
+    "DiskUsageUnit": "%"
+  }
+}

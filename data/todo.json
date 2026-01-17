@@ -1,0 +1,47 @@
+{
+  "title": "Household Tasks",
+  "timestamp": "2024-01-15 14:30:00",
+  "tasks": [
+    {
+      "text": "Take out trash and recycling",
+      "completed": false,
+      "category": "Weekly"
+    },
+    {
+      "text": "Clean kitchen counters",
+      "completed": true,
+      "category": "Daily"
+    },
+    {
+      "text": "Do laundry - whites",
+      "completed": false,
+      "category": "Weekly"
+    },
+    {
+      "text": "Grocery shopping - milk, eggs, bread",
+      "completed": false,
+      "category": "Errands"
+    },
+    {
+      "text": "Vacuum living room",
+      "completed": true,
+      "category": "Weekly"
+    },
+    {
+      "text": "Change air filter",
+      "completed": false,
+      "category": "Monthly"
+    },
+    {
+      "text": "Water house plants",
+      "completed": false,
+      "category": "Daily"
+    },
+    {
+      "text": "Pay utility bills",
+      "completed": false,
+      "category": "Monthly"
+    }
+  ]
+}
+
