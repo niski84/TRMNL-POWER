@@ -379,7 +379,7 @@ Contributions welcome! Please feel free to submit a Pull Request.
 
 MIT License
 
-Copyright (c) 2024 TRMNL-POWER Contributors
+Copyright (c) 2024 Nicholas Skitch (BMaestro)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -406,3 +406,7 @@ SOFTWARE.
 **Made with ❤️ for the TRMNL community**
 
 *Transform your data into beautiful e-ink displays*
+
+---
+
+**Author:** Nicholas Skitch (BMaestro)

@@ -1,0 +1,76 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag (e.g., v1.0.0)'
+        required: true
+        type: string
+
+jobs:
+  build-windows:
+    name: Build Windows Executable
+    runs-on: windows-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.24'
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Install Playwright
+        run: npm install playwright
+      
+      - name: Build Windows executable
+        run: |
+          go build -o trmnl-power.exe -ldflags="-s -w" ./main.go ./render.go ./server.go ./styles.go ./views.go ./rotation.go ./test-dashboard.go
+      
+      - name: Create release archive
+        run: |
+          mkdir trmnl-power-windows
+          copy trmnl-power.exe trmnl-power-windows\
+          copy config.json trmnl-power-windows\
+          copy README.md trmnl-power-windows\
+          copy LICENSE trmnl-power-windows\
+          xcopy /E /I /Y data trmnl-power-windows\data
+          xcopy /E /I /Y templates trmnl-power-windows\templates
+          xcopy /E /I /Y scripts trmnl-power-windows\scripts
+          Compress-Archive -Path trmnl-power-windows -DestinationPath trmnl-power-windows.zip
+      
+      - name: Get version from tag
+        id: get_version
+        shell: pwsh
+        run: |
+          $version = ""
+          if ($env:GITHUB_REF -match 'refs/tags/(.+)') {
+            $version = $matches[1]
+          } elseif ('${{ github.event.inputs.tag }}' -ne '') {
+            $version = '${{ github.event.inputs.tag }}'
+          } else {
+            $version = 'v0.0.0-dev'
+          }
+          echo "version=$version" >> $env:GITHUB_OUTPUT
+          echo "Version: $version"
+      
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: trmnl-power-windows.zip
+          name: Release ${{ steps.get_version.outputs.version }}
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
