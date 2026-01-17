@@ -38,7 +38,7 @@ jobs:
       
       - name: Build Windows executable
         run: |
-          go build -o trmnl-power.exe -ldflags="-s -w" ./main.go ./render.go ./server.go ./styles.go ./views.go ./rotation.go ./test-dashboard.go ./tray.go ./tray_noop.go
+          go build -o trmnl-power.exe -ldflags="-s -w" ./main.go ./render.go ./server.go ./styles.go ./views.go ./rotation.go ./tray.go ./tray_noop.go
       
       - name: Create release archive
         run: |
