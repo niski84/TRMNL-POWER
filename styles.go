@@ -6,21 +6,34 @@ const tailwindCSS = `    * {
       box-sizing: border-box;
     }
     
+    /* ENFORCED: Root and body dimensions - DO NOT OVERRIDE */
+    html {
+      width: 800px !important;
+      height: 480px !important;
+      max-width: 800px !important;
+      max-height: 480px !important;
+      overflow: hidden !important;
+    }
+    
     body {
-      width: 800px;
-      height: 480px;
+      width: 800px !important;
+      height: 480px !important;
+      max-width: 800px !important;
+      max-height: 480px !important;
       background: #ffffff;
       color: #000000;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
-      overflow: hidden;
+      overflow: hidden !important;
       display: flex;
       flex-direction: column;
+      position: relative;
     }
     
+    /* ENFORCED: Header constraints - fixed height */
     .header {
-      height: 50px;
-      min-height: 50px;
-      max-height: 50px;
+      height: 50px !important;
+      min-height: 50px !important;
+      max-height: 50px !important;
       background: #000000;
       color: #ffffff;
       display: flex;
@@ -28,7 +41,7 @@ const tailwindCSS = `    * {
       align-items: center;
       padding: 0 12px;
       border-bottom: 2px solid #000000;
-      flex-shrink: 0;
+      flex-shrink: 0 !important;
     }
     
     .header-title {
@@ -36,23 +49,35 @@ const tailwindCSS = `    * {
       font-weight: bold;
       letter-spacing: -0.2px;
       line-height: 1.2;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
     
     .header-timestamp {
       font-size: 14px;
       font-weight: 500;
       line-height: 1.2;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
     
+    /* ENFORCED: Content area constraints */
     .content {
       flex: 1;
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 10px;
       padding: 10px;
-      min-height: 0;
-      overflow: hidden;
-      max-height: 420px;
+      min-height: 0 !important;
+      overflow: hidden !important;
+      max-height: 420px !important; /* 480 - 50 header - 10 padding */
+    }
+    
+    /* Prevent any element from exceeding bounds */
+    * {
+      max-width: 800px;
     }
     
     .dashboard-grid {

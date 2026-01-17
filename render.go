@@ -429,6 +429,15 @@ func renderAllViews() error {
 
 	// Render each view to its own image file
 	for _, view := range views {
+		// Validate template before rendering (non-blocking warnings)
+		warnings := validateViewBeforeRender(view)
+		if len(warnings) > 0 {
+			log.Printf("⚠️  Template validation warnings for view '%s':", view.Name)
+			for _, warning := range warnings {
+				log.Printf("   - %s", warning)
+			}
+		}
+		
 		// Load view data
 		dataStart := time.Now()
 		_, err := loadViewData(view)

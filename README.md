@@ -141,19 +141,41 @@ The console window can be minimized - the server will continue running in the ba
 
 ## Using the Templating System
 
-TRMNL-POWER's templating system makes it easy to create custom displays. Templates are HTML files that use Go's template syntax.
+TRMNL-POWER's templating system makes it easy to create custom displays. Templates are HTML files that use Go's template syntax. **All templates are automatically constrained to 800×480 pixels** to ensure they fit perfectly on TRMNL displays.
+
+### Template Guidelines & Constraints
+
+**⚠️ IMPORTANT: Size Constraints are Enforced**
+
+Every template is automatically constrained to ensure it fits on the TRMNL display:
+- **Total Area**: 800px × 480px (fixed, enforced)
+- **Header**: 50px height (fixed)
+- **Content Area**: Max 420px height (480 - 50 header - 10 padding)
+- **Overflow**: Hidden (content cannot exceed bounds)
+
+These constraints are enforced via CSS `!important` rules to prevent accidental overrides.
 
 ### Basic Template Structure
 
+**Quick Start**: Generate a template boilerplate:
+```bash
+./trmnl-renderer --generate-template my-dashboard
+```
+
+This creates `templates/my-dashboard.html` and `data/my-dashboard.json` with the correct structure.
+
+**Required Structure**:
+
 ```html
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=800, height=480">
+  <meta name="viewport" content="width=800, height=480, initial-scale=1.0">
   <title>My Dashboard</title>
   <style>
     {{.Styles}}
+    /* Your custom styles here - base styles are automatically enforced */
   </style>
 </head>
 <body>
@@ -167,6 +189,19 @@ TRMNL-POWER's templating system makes it easy to create custom displays. Templat
 </body>
 </html>
 ```
+
+**Required Elements**:
+1. ✅ **Viewport Meta Tag**: Must match render dimensions (`width=800, height=480`)
+2. ✅ **{{.Styles}} Injection**: Required in `<style>` tag - injects base styles
+3. ✅ **Body Structure**: Use `.header` and `.content` classes for proper layout
+4. ✅ **Size Constraints**: Base styles enforce dimensions automatically
+
+**DO NOT**:
+- ❌ Override `body` width/height (use base styles)
+- ❌ Use `position: absolute` without bounds checking
+- ❌ Set font sizes larger than 32px for values (may overflow)
+- ❌ Add padding that exceeds content area (max 420px height)
+- ❌ Use `overflow: visible` on content containers
 
 ### Using Data Fields
 
@@ -314,14 +349,28 @@ Shows tasks with checkboxes and categories. Great for personal productivity.
 
 ## Development
 
-### Testing Templates
+### Template Tools
 
-Render a specific view to a PNG file for testing:
+**Generate a new template**:
+```bash
+./trmnl-renderer --generate-template my-view
+```
+Creates `templates/my-view.html` and `data/my-view.json` with proper structure.
 
+**Validate all templates**:
+```bash
+./trmnl-renderer --validate-templates
+```
+Checks all templates for common issues and provides warnings.
+
+**Test render a template**:
 ```bash
 ./trmnl-renderer --test-render dashboard
 # Output: dashboard-render.png
 ```
+Renders a specific view to a PNG file for testing.
+
+**Automatic Validation**: Templates are automatically validated during rendering. Warnings are logged but won't prevent rendering.
 
 ### Adding New Views
 
@@ -363,7 +412,17 @@ All templates use the shared CSS in `styles.go`. Modify the `tailwindCSS` consta
 **Template not displaying correctly?**
 - Check JSON data structure matches template expectations
 - Verify field names match exactly (case-sensitive)
+- Use `--validate-templates` to check for issues
 - Use `--test-render` to preview before deploying
+- Ensure template includes `{{.Styles}}` and proper viewport meta tag
+- Check server logs for validation warnings
+
+**Template content cut off or exceeds display?**
+- Base styles enforce 800×480 dimensions automatically
+- If content is cut off, reduce font sizes or padding
+- Check that `.content` class is used (max-height: 420px enforced)
+- Use `--validate-templates` to see layout warnings
+- Review template structure matches examples in `templates/` directory
 
 ---
 

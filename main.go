@@ -93,6 +93,22 @@ func main() {
 	if len(os.Args) > 1 && os.Args[1] == "--test-render" {
 		log.Fatal("Test render feature requires test-render.go to be included in build")
 	}
+	
+	// Generate template boilerplate
+	if len(os.Args) > 1 && os.Args[1] == "--generate-template" {
+		if len(os.Args) < 3 {
+			log.Fatal("Usage: trmnl-renderer --generate-template <template-name>")
+		}
+		templateName := os.Args[2]
+		generateTemplateBoilerplate(templateName)
+		return
+	}
+	
+	// Validate all templates
+	if len(os.Args) > 1 && os.Args[1] == "--validate-templates" {
+		validateAllTemplates()
+		return
+	}
 
 	// Perform initial render of all views
 	log.Println("Performing initial render of all views...")
