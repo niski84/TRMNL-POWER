@@ -11,10 +11,10 @@
 
 TRMNL-POWER is a lightweight Go server that creates beautiful e-ink displays for your TRMNL device. Instead of relying on cloud services, you run everything locally on your network. This gives you:
 
-- 🔒 **Privacy**: Your data stays on your local network
-- ⚡ **Speed**: No internet latency - instant updates
-- 🎨 **Control**: Customize every aspect with HTML templates
-- 🔧 **Flexibility**: Connect any data source - JSON files, APIs, scripts
+- <img src="bullet.png" alt="•" width="12" height="12" style="vertical-align: middle;"> **Privacy**: Your data stays on your local network
+- <img src="bullet.png" alt="•" width="12" height="12" style="vertical-align: middle;"> **Speed**: No internet latency - instant updates
+- <img src="bullet.png" alt="•" width="12" height="12" style="vertical-align: middle;"> **Control**: Customize every aspect with HTML templates
+- <img src="bullet.png" alt="•" width="12" height="12" style="vertical-align: middle;"> **Flexibility**: Connect any data source - JSON files, APIs, scripts
 
 ### Why Use TRMNL-POWER?
 
@@ -28,25 +28,25 @@ TRMNL-POWER is a lightweight Go server that creates beautiful e-ink displays for
 
 ## Key Features
 
-### 📊 Flexible Templating System
+### <img src="bullet.png" alt="•" width="12" height="12" style="vertical-align: middle;"> Flexible Templating System
 - **HTML-based templates** - Use familiar HTML/CSS to design your displays
 - **Data binding** - Connect JSON fields directly to template variables
 - **Multiple views** - Rotate between different dashboards automatically
 - **E-ink optimized** - Built-in styles for high-contrast, readable displays
 
-### 📡 Multiple Data Sources
+### <img src="bullet.png" alt="•" width="12" height="12" style="vertical-align: middle;"> Multiple Data Sources
 - **JSON files** - Simple, local data storage
 - **API endpoints** - Connect to local services
 - **Scripts** - Run custom data collection scripts
 - **Easy to extend** - Add your own data collectors
 
-### 🖼️ Smart Rendering
+### <img src="bullet.png" alt="•" width="12" height="12" style="vertical-align: middle;"> Smart Rendering
 - **Playwright-powered** - Reliable HTML-to-image conversion
 - **E-ink optimized** - Automatic 1-bit monochrome conversion
 - **Auto-refresh** - Scheduled updates keep your display current
 - **View rotation** - Automatically cycle through different views
 
-### 🌐 TRMNL Integration
+### <img src="bullet.png" alt="•" width="12" height="12" style="vertical-align: middle;"> TRMNL Integration
 - **Local-only** - No cloud dependency
 - **Easy setup** - Captive portal configuration guide included
 - **Stable endpoints** - Follows TRMNL device protocols
@@ -120,6 +120,14 @@ The server will start and display connection instructions with your local IP add
    - Start the server
 
 That's it! No manual npm installs needed.
+
+**System Tray Icon (Windows)**: When running on Windows, TRMNL-POWER automatically runs in the system tray. Right-click the tray icon to:
+- **View Rendered Image** - Open the current `screen.bmp` in your browser
+- **Open Server** - Open the server dashboard in your browser
+- **Edit Configuration** - Open `config.json` in Notepad for easy editing
+- **Exit** - Gracefully shut down the server
+
+The console window can be minimized - the server will continue running in the background. Use the `--no-tray` flag if you prefer console-only mode.
 
 ---
 

@@ -18,9 +18,11 @@ if [ ! -f "go.sum" ]; then
     go mod download
 fi
 
-# Build Go binary
+# Build Go binary (build tags will automatically select correct tray implementation)
 echo "Building Go binary..."
-go build -o trmnl-renderer main.go render.go server.go styles.go views.go rotation.go
+# On Linux, tray_noop.go will be included (build tag !windows)
+# On Windows, tray.go will be included (build tag windows)
+go build -o trmnl-renderer ./main.go ./render.go ./server.go ./styles.go ./views.go ./rotation.go ./tray_noop.go
 
 echo "Build complete!"
 echo ""

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -64,6 +65,10 @@ type RenderStats struct {
 	LastRenderTime      time.Time
 }
 
+// Shared variables for graceful shutdown
+var httpServer *http.Server
+var serverQuitChan chan bool
+
 func main() {
 	// Load config
 	configData, err := os.ReadFile("config.json")
@@ -84,13 +89,9 @@ func main() {
 	lastRotationTime = time.Now()
 
 	// Check if we should render a specific view for testing
+	// Note: This requires test-render.go to be included in the build
 	if len(os.Args) > 1 && os.Args[1] == "--test-render" {
-		if len(os.Args) < 3 {
-			log.Fatalf("Usage: %s --test-render <view-name>", os.Args[0])
-		}
-		viewName := os.Args[2]
-		renderViewToTest(viewName)
-		return
+		log.Fatal("Test render feature requires test-render.go to be included in build")
 	}
 
 	// Perform initial render of all views
@@ -137,6 +138,12 @@ func main() {
 	log.Printf("  - Image: http://%s/screen.bmp", baseURL)
 	log.Printf("  - Manual Render: POST http://%s/api/render", baseURL)
 
+	// Create HTTP server with graceful shutdown support
+	httpServer = &http.Server{
+		Addr:    addr,
+		Handler: nil, // Uses http.DefaultServeMux from setupServer()
+	}
+
 	// Start system tray if on Windows and not disabled
 	if useTray {
 		go func() {
@@ -147,19 +154,39 @@ func main() {
 		}()
 	}
 
-	// Run server (blocks)
-	// Note: On Windows with tray, the console window can be minimized
-	if err := http.ListenAndServe(addr, nil); err != nil {
-		if serverQuitChan != nil {
-			// Check if this is a graceful shutdown from tray
-			select {
-			case <-serverQuitChan:
-				log.Println("Server stopped by user request")
-				return
-			default:
+	// Run server with graceful shutdown support
+	go func() {
+		if err := httpServer.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+			if serverQuitChan != nil {
+				select {
+				case <-serverQuitChan:
+					// Normal shutdown
+					return
+				default:
+				}
 			}
+			log.Fatalf("Server failed: %v", err)
 		}
-		log.Fatalf("Server failed: %v", err)
+	}()
+
+	// Wait for shutdown signal (from tray or console)
+	if useTray && serverQuitChan != nil {
+		// Wait for quit signal from tray
+		<-serverQuitChan
+		log.Println("Shutting down server gracefully...")
+		
+		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+		defer cancel()
+		
+		if err := httpServer.Shutdown(ctx); err != nil {
+			log.Printf("Server shutdown error: %v", err)
+		} else {
+			log.Println("Server stopped successfully")
+		}
+	} else {
+		// Console mode - wait for Ctrl+C or keep running
+		// Note: On Windows, console can be minimized when tray is active
+		select {} // Block forever (server runs in goroutine above)
 	}
 }
 
